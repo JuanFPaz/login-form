@@ -51,7 +51,6 @@ export async function postUserAuth<T>(
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   };
-  console.log(options);
   return await api<T>(url, options);
 }
 
