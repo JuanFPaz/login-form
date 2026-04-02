@@ -1,7 +1,6 @@
 .input-container {
   height: 50px;
   position: relative;
-  width: 100%;
 }
 
 .ic {
@@ -9,20 +8,34 @@
 }
 
 .input {
-  background-color: #303245;
+  border: 2px solid rgba(56, 189, 248, 0.3);
+  background: linear-gradient(
+    168deg,
+    rgba(56, 189, 248, 0.04) 0%,
+    rgba(7, 7, 12, 0.98) 100%
+  );
   border-radius: 12px;
-  border: 0;
   box-sizing: border-box;
-  color: #eee;
+  color: #fff;
   font-size: 18px;
   height: 100%;
   outline: 0;
   padding: 4px 20px 0;
   width: 100%;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.input:focus {
+  background: rgba(56, 189, 248, 0.08);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 48px rgba(56, 189, 248, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .cut {
-  background-color: #15172b;
+  background: rgba(7, 7, 12, 0);
   border-radius: 10px;
   height: 20px;
   left: 20px;
@@ -47,11 +60,16 @@
 
 .input:focus ~ .cut,
 .input:not(:placeholder-shown) ~ .cut {
+  background: linear-gradient(
+    168deg,
+    rgba(56, 189, 248, 0.04) 0%,
+    rgba(7, 7, 12, 0.98) 100%
+  );
   transform: translateY(8px);
 }
 
 .placeholder {
-  color: #65657b;
+  color: #8f8f8f;
   font-family: sans-serif;
   left: 20px;
   line-height: 14px;
@@ -70,11 +88,11 @@
 }
 
 .input:not(:placeholder-shown) ~ .placeholder {
-  color: #808097;
+  color: #ffffff;
 }
 
 .input:focus ~ .placeholder {
-  color: #2f5ddc;
+  color: #ffffff;
 }
 
 .submit {
@@ -82,7 +100,7 @@
   width: 100%;
   margin-top: 25px;
   border-radius: 3rem;
-  background-color: #2e3032;
+  background-color: #0f141a;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -92,7 +110,9 @@
 }
 
 .submit:hover {
-  background-color: #ff4655;
+  border-color: rgba(56, 189, 248, 0.35);
+  background: #38bdf8;
+  color: #000000;
 }
 
 .checkbox {

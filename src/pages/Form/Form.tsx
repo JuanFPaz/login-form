@@ -42,29 +42,37 @@ export default function Form({
   return (
     <>
       <div className="form-page">
-        <div className="form-container">
-          <div className="button-container">
-            <Button
-              id="login"
-              onClick={handleLogin}
-              textContent="Log In"
-            ></Button>
-            <Button
-              id="register"
-              onClick={handleRegister}
-              textContent="Sign Up"
-            ></Button>
-          </div>
-          <div className="title-container">
-            <div className="title"><h1>Welcome</h1></div>
-            <div className="subtitle">
-              <h2>
-              {form.status === "login" ? "Log In" : "Sign Up"}
-              </h2>
+        <div className="form-card">
+          <div className="form-buttons">
+            <div className="buttons-container">
+              <Button
+                id="login"
+                onClick={handleLogin}
+                textContent="Log In"
+              ></Button>
+              <Button
+                id="register"
+                onClick={handleRegister}
+                textContent="Sign Up"
+              ></Button>
             </div>
           </div>
-          {form.status === "login" &&  <Login onLoad={onLoad} onSubmit={handleSubmit} />}
-          {form.status === "register" && <SignUp onSubmit={onLoad} />}
+          <div className="form-titles">
+            <div className="titles-container">
+              <div className="title">
+                <h1>Welcome</h1>
+              </div>
+              <div className="subtitle">
+                <h2>{form.status === "login" ? "Log In" : "Sign Up"}</h2>
+              </div>
+            </div>
+          </div>
+          <div className="form-container">
+            {form.status === "login" && (
+              <Login onLoad={onLoad} onSubmit={handleSubmit} />
+            )}
+            {form.status === "register" && <SignUp onSubmit={onLoad} />}
+          </div>
         </div>
       </div>
     </>

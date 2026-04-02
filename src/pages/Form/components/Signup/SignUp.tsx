@@ -22,6 +22,7 @@ export default function SignUp({ onSubmit }: propsSignUp) {
     event.preventDefault();
     onSubmit({ status: "load" });
     const fd: FormData = new FormData(event.currentTarget);
+    console.log(fd)
     const bodyUser: userRegister = {
       username: fd.get("username") as string,
       password: fd.get("password") as string,

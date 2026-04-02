@@ -1,75 +1,85 @@
-# React + TypeScript + Vite
+# 🐾 Login Form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web desarrollada con **React + TypeScript** para modelar y gestionar una formulario de **inicio de inicio** y **registro de usuario nuevo**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🧠 Arquitectura
 
-## React Compiler
+El proyecto está dividido conceptualmente en tres capas:
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### 🔹 App.tsx (Componente Principal)
 
-Note: This will impact Vite dev & build performances.
+Encapsula la lógica global de la aplicación:
 
-## Expanding the ESLint configuration
+* Estados del componente:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  * `app` : Estado global de la aplicación. Por defecto su valor es `none`.
+  * `load`: Estado global del componente Loading. Por defecto su valor es `load`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* Métodos iniciales:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+  * Cuando incia la aplicación, comprueba si hay una sesion guardada.
+  * Si no existe una sesion guardada, establecemos el estado `app` como `idle` y load como `idle`.
+  * Si existe, intentamos obtener el usuario autenticado. Si se consigue correctamente, establecemos el estado `app` como `success` y le pasamos la `data`.
+  * Si ocurre un error intentando obtener el usuario autenticado, establecemos el estado `app` como `success`
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🧩 Modelo de Estados
+
+```ts
+/*App.tsx*/
+export type stateApp = { status: 'success', data: userAuth} | { status: 'idle' } | {status:'none'}
+export type stateLoad = { status: 'idle' } | { status: 'load' }
+
+/*User.tsx*/
+
+/*Form.tsx*/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 💾 Persistencia
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Se utiliza `localStorage` para guardar y eliminar:
+
+* `remember`
+
+Este dato se guarda cuando iniciamos sesion, luego de marcar el `checkbox`. Cuando cerramos sesion, borramos este dato.
+
+---
+
+## 🛠️ Tecnologías
+
+* React
+* TypeScript
+* CSS
+* API fetch
+
+---
+
+## 🧪 Estado del proyecto
+
+✔️ Funcional
+✔️ Permite crear e ingresar un usuario nuevo
+⚠️ Limitaciones en la persistencia de usuarios creados, debido a la falta de base de datos en la API.
+
+---
+
+## 📌 Aprendizajes clave
+
+Este proyecto explora:
+
+* Manejo de formularios de inicio y registro.
+* Manejo de cookies a traves de API desarrollada con express.
+* Persistencia en frontend
+* Separación de responsabilidades
+
+---
+
+## 🙌 Autor
+
+Desarrollado por **Juan Paz** como proyecto de práctica y exploración de lógica compleja en frontend.
+
+---

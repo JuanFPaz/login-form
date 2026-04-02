@@ -1,8 +1,10 @@
+
 body {
   margin: 0;
-  background: #2e3659;
+background: #091629;
+background: linear-gradient(45deg,#091629 35%, #01010f 100%);
 }
-#root {
-  min-height: 100vh;
-  display: flex;
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
