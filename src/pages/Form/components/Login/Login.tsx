@@ -1,16 +1,9 @@
 import { useState, useEffect } from "react";
-import {
-  postUserAuth,
-  type resLogin,
-  type userLogin,
-} from "../../../../../../login-form/src/utils/api";
 import Input, { CheckBox } from "../../../../components/Input";
-import type { stateLoad, stateMessage } from "../../../../types/typeStates";
-
-type propsLogin = {
-  onLoad: (st: stateLoad) => void;
-  onSubmit: () => void;
-};
+import { postLogin } from "../../../../service/api";
+import type { stateMessage } from "../../../../types/typeStates";
+import type { propsLogin } from "../../../../types/typeProps";
+import type { responseApi, userLogin } from "../../../../types/typeService";
 
 export default function Login({ onLoad, onSubmit }: propsLogin) {
   const [message, setMessage] = useState<stateMessage>({ status: "idle" });
@@ -25,18 +18,18 @@ export default function Login({ onLoad, onSubmit }: propsLogin) {
     onLoad({ status: "load" });
     const fd: FormData = new FormData(event.currentTarget);
     const bodyUser: userLogin = {
-      username: fd.get('username') as string,
-      password: fd.get('password') as string
-    }
-    const rememberUser = fd.get('rememberme')
-   
+      username: fd.get("username") as string,
+      password: fd.get("password") as string,
+    };
+    const rememberUser = fd.get("rememberme");
+
     try {
-      const res: resLogin = await postUserAuth<resLogin>(
+      const res: responseApi = await postLogin<responseApi>(
         "/api/auth/login",
         bodyUser,
       );
       setMessage({ status: "success", data: res.message });
-      if(rememberUser) localStorage.setItem('remember','on')
+      if (rememberUser) localStorage.setItem("remember", "on");
       onSubmit();
     } catch (err) {
       setMessage({ status: "error", error: (err as Error).message });

@@ -1,4 +1,4 @@
-import type { userAuth } from "../../../utils/api";
+import type { userAuth } from "../../../service/api";
 
 type propsTablaUser={
     userAuth:userAuth

@@ -1,24 +1,11 @@
 import React, { useState } from "react";
-import type { userAuth } from "../../utils/api";
 import TablaUser from "./components/TablaUser";
-import "./User.css";
 import EditUser from "./components/EditUser";
+import type { stateUser } from "../../types/typeStates";
+import type { propsUser } from "../../types/typeProps";
+import "./User.css";
 
-type userProps = {
-  data: userAuth;
-  onDisconnect: () => void;
-};
-
-type stateUser =
-  | {
-      status: "idle";
-      data: userAuth;
-    }
-  | { status: "edit" }
-  | { status: "delete" }
-  | { status: "close" };
-
-export default function User({ data, onDisconnect }: userProps) {
+export default function User({ data, onDisconnect }: propsUser) {
   const [user, setUser] = useState<stateUser>({ status: "idle", data });
   function handleClick(e: React.MouseEvent) {
     switch (e.currentTarget.id) {
@@ -33,7 +20,7 @@ export default function User({ data, onDisconnect }: userProps) {
         break;
       case "close":
         setUser({ status: "close" });
-        onDisconnect()
+        onDisconnect();
         break;
     }
   }
@@ -86,9 +73,7 @@ export default function User({ data, onDisconnect }: userProps) {
           {user.status === "idle" && (
             <TablaUser userAuth={user.data}></TablaUser>
           )}
-          {user.status === "edit" && (
-            <EditUser></EditUser>
-          )}
+          {user.status === "edit" && <EditUser></EditUser>}
         </>
       </div>
     </div>

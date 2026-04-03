@@ -1,25 +1,14 @@
 import { useState } from "react";
-import {
-  type stateForm,
-  type stateLoad,
-  type stateApp,
-} from "../../types/typeStates";
 import SignUp from "./components/Signup/SignUp";
 import Login from "./components/Login/Login";
 import Button from "../../components/Button";
+import { getUser } from "../../service/api";
+import type { propsForm } from "../../types/typeProps";
+import type { stateForm } from "../../types/typeStates";
+import type { userAuth } from "../../types/typeService";
 import "./Form.css";
-import {
-  getUserAuth,
-  type userAuth,
-} from "../../../../login-form/src/utils/api";
 
-export default function Form({
-  onLoad,
-  onSubmit,
-}: {
-  onLoad: (stl: stateLoad) => void;
-  onSubmit: (sta: stateApp) => void;
-}) {
+export default function Form({ onLoad, onSubmit }: propsForm) {
   const [form, setForm] = useState<stateForm>({ status: "login" });
 
   function handleLogin() {
@@ -29,14 +18,18 @@ export default function Form({
     setForm({ status: "register" });
   }
 
-  async function handleSubmit() {
+  async function handleLoginSubmit() {
     try {
-      const res: userAuth = await getUserAuth<userAuth>("/api/auth/me");
+      const res: userAuth = await getUser<userAuth>("/api/auth/me");
       onSubmit({ status: "success", data: res });
     } catch (error) {
       console.log(error);
     }
     onLoad({ status: "idle" });
+  }
+
+  async function handleRegisterSubmit() {
+    setForm({ status: "login" });
   }
 
   return (
@@ -69,9 +62,11 @@ export default function Form({
           </div>
           <div className="form-container">
             {form.status === "login" && (
-              <Login onLoad={onLoad} onSubmit={handleSubmit} />
+              <Login onLoad={onLoad} onSubmit={handleLoginSubmit} />
             )}
-            {form.status === "register" && <SignUp onSubmit={onLoad} />}
+            {form.status === "register" && (
+              <SignUp onLoad={onLoad} onSubmit={handleRegisterSubmit} />
+            )}
           </div>
         </div>
       </div>

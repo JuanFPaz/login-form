@@ -1,16 +1,11 @@
 import { useState, useEffect } from "react";
-import api, {
-  type resRegister,
-  type userRegister,
-} from "../../../../utils/api";
 import Input from "../../../../components/Input";
-import type { stateLoad, stateMessage } from "../../../../types/typeStates";
+import { postSignUp } from "../../../../service/api";
+import type { stateMessage } from "../../../../types/typeStates";
+import type { propsSignUp } from "../../../../types/typeProps";
+import type { responseApi, userRegister } from "../../../../types/typeService";
 
-type propsSignUp = {
-  onSubmit: (st: stateLoad) => void;
-};
-
-export default function SignUp({ onSubmit }: propsSignUp) {
+export default function SignUp({ onLoad, onSubmit }: propsSignUp) {
   const [message, setMessage] = useState<stateMessage>({ status: "idle" });
 
   useEffect(() => {
@@ -20,9 +15,8 @@ export default function SignUp({ onSubmit }: propsSignUp) {
 
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit({ status: "load" });
+    onLoad({ status: "load" });
     const fd: FormData = new FormData(event.currentTarget);
-    console.log(fd)
     const bodyUser: userRegister = {
       username: fd.get("username") as string,
       password: fd.get("password") as string,
@@ -36,21 +30,16 @@ export default function SignUp({ onSubmit }: propsSignUp) {
     };
 
     try {
-      const res = await api<resRegister>("/api/auth/register", {
-        method: "POST",
-        mode: "cors",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(bodyUser),
-      });
+      const res = await postSignUp<responseApi>("/api/auth/registe", bodyUser);
       setMessage({ status: "success", data: res.message });
+      onSubmit();
     } catch (err) {
       setMessage({ status: "error", error: (err as Error).message });
     }
-    onSubmit({ status: "idle" });
+    onLoad({ status: "idle" });
   };
   return (
-    <form className="form-signup" id={'form-signup'}onSubmit={handleSubmit}>
+    <form className="form-signup" id={"form-signup"} onSubmit={handleSubmit}>
       <Input
         id="name"
         className="input"

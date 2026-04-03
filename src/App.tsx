@@ -1,14 +1,10 @@
+import { useEffect, useState } from "react";
+import User from "./pages/User/User";
 import Form from "./pages/Form/Form";
 import Loading from "./components/Loading";
-import {
-  getUserAuth,
-  postClearCookie,
-  type resLogout,
-  type userAuth,
-} from "./utils/api";
-import { useEffect, useState } from "react";
+import { getUser, postLogut } from "./service/api";
 import type { stateApp, stateLoad } from "./types/typeStates";
-import User from "./pages/User/User";
+import type { responseApi, userAuth } from "./types/typeService";
 
 export default function App() {
   const [load, setLoad] = useState<stateLoad>({ status: "load" });
@@ -24,7 +20,7 @@ export default function App() {
         setLoad({ status: "idle" });
       } else {
         try {
-          const res: userAuth = await getUserAuth<userAuth>("/api/auth/me");
+          const res: userAuth = await getUser<userAuth>("/api/auth/me");
           setApp({ status: "success", data: res });
           setLoad({ status: "idle" });
         } catch (error) {
@@ -47,8 +43,8 @@ export default function App() {
   async function handleOnDisconnect() {
     setLoad({ status: "load" });
     try {
-      const res: resLogout = await postClearCookie("/api/auth/logout");
-      localStorage.removeItem('remember')
+      const res: responseApi = await postLogut<responseApi>("/api/auth/logout");
+      localStorage.removeItem("remember");
       alert(res.message);
     } catch (error) {
       alert((error as Error).message);
