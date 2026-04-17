@@ -5,7 +5,6 @@ import { optionsGET, optionsPOST } from "../utils/options";
 
 async function api<T>(url: string, options: RequestInit): Promise<T> {
   const res: Response = await fetch(PROD_URL + url, options);
-  
   if (!res.ok) {
     if (res.status === 404) {
       const err: any = await res.json();
