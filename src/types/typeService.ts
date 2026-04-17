@@ -7,7 +7,7 @@ export type LoginResponse = ApiResponse & {
   access_token: string;
 };
 
-export type AccesResponse = ApiResponse & {
+export type AccessResponse = ApiResponse & {
   data:UserResponse
 }
 

@@ -1,17 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import User from "./pages/User/User";
 import Form from "./pages/Form/Form";
 import Loading from "./components/Loading";
-import { getUser, postLogut } from "./service/api";
+import { getUser, postLogut, postRefresh } from "./service/api";
 import type { stateApp, stateLoad } from "./types/typeStates";
-import type { ApiResponse, UserResponse } from "./types/typeService";
+import type {
+  AccessResponse,
+  ApiResponse,
+  LoginResponse,
+} from "./types/typeService";
 
 export default function App() {
   const [load, setLoad] = useState<stateLoad>({ status: "load" });
   const [app, setApp] = useState<stateApp>({ status: "none" });
-
+  const didRun = useRef(false); // solucion al doble useEffect
   // Ocurre una sola vez, cuando toda la APP se renderice
   useEffect(() => {
+    if (didRun.current) return;
+    didRun.current = true;
     (async () => {
       const remember = localStorage.getItem("remember");
 
@@ -20,8 +26,13 @@ export default function App() {
         setLoad({ status: "idle" });
       } else {
         try {
-          const res: UserResponse = await getUser<UserResponse>("/api/auth/profile",'quehagoaca');
-          setApp({ status: "success", data: res });
+          const res: LoginResponse =
+            await postRefresh<LoginResponse>("/api/auth/refresh");
+          const user: AccessResponse = await getUser<AccessResponse>(
+            "/api/auth/profile",
+            res.access_token,
+          );
+          setApp({ status: "success", data: user.data });
           setLoad({ status: "idle" });
         } catch (error) {
           console.error((error as Error).message);

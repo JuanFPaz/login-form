@@ -5,6 +5,7 @@ import { optionsGET, optionsPOST } from "../utils/options";
 
 async function api<T>(url: string, options: RequestInit): Promise<T> {
   const res: Response = await fetch(DEV_URL + url, options);
+  
   if (!res.ok) {
     if (res.status === 404) {
       const err: any = await res.json();
@@ -34,4 +35,8 @@ export async function postSignUp<T>(url: string, body: UserRegister) {
 
 export async function postLogut<T>(url: string): Promise<T> {
   return await post<T>(url, optionsPOST());
+}
+
+export async function postRefresh<T>(url:string): Promise<T>{
+  return await post<T>(url,optionsPOST())
 }

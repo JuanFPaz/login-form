@@ -5,7 +5,7 @@ import Button from "../../components/Button";
 import { getUser } from "../../service/api";
 import type { propsForm } from "../../types/typeProps";
 import type { stateForm } from "../../types/typeStates";
-import type {  AccesResponse } from "../../types/typeService";
+import type {  AccessResponse } from "../../types/typeService";
 import "./Form.css";
 
 export default function Form({ onLoad, onSubmit }: propsForm) {
@@ -20,7 +20,7 @@ export default function Form({ onLoad, onSubmit }: propsForm) {
 5
   async function handleLoginSubmit(access_token:string) {
     try {
-      const res: AccesResponse = await getUser<AccesResponse>("/api/auth/profile",access_token);
+      const res: AccessResponse = await getUser<AccessResponse>("/api/auth/profile",access_token);
       onSubmit({ status: "success", data: res.data });
     } catch (error) {
       console.log(error);
