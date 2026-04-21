@@ -21,7 +21,7 @@ export default function Form({ onLoad, onSubmit }: propsForm) {
   async function handleLoginSubmit(access_token:string) {
     try {
       const res: AccessResponse = await getUser<AccessResponse>("/api/auth/profile",access_token);
-      onSubmit({ status: "success", data: res.data });
+      onSubmit({ status: "success", data: res.data, access_token});
     } catch (error) {
       console.log(error);
     }
@@ -41,22 +41,22 @@ export default function Form({ onLoad, onSubmit }: propsForm) {
               <Button
                 id="login"
                 onClick={handleLogin}
-                textContent="Log In"
+                textContent="Iniciar Sesion"
               ></Button>
               <Button
                 id="register"
                 onClick={handleRegister}
-                textContent="Sign Up"
+                textContent="Registrarse"
               ></Button>
             </div>
           </div>
           <div className="form-titles">
             <div className="titles-container">
               <div className="title">
-                <h1>Welcome</h1>
+                <h1>Bienvenido</h1>
               </div>
               <div className="subtitle">
-                <h2>{form.status === "login" ? "Log In" : "Sign Up"}</h2>
+                <h2>{form.status === "login" ? "Iniciar Sesion" : "Crear Nueva Cuenta"}</h2>
               </div>
             </div>
           </div>

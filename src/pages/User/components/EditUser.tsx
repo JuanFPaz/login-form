@@ -28,6 +28,9 @@ export default function EditUser() {
           textContent="Repetir Contraseña"
           required={true}
         />
+        <button type="submit" className="submit">
+          Change Password
+        </button>
       </form>
     </div>
   );

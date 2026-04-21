@@ -13,6 +13,7 @@ import type {
 export default function App() {
   const [load, setLoad] = useState<stateLoad>({ status: "load" });
   const [app, setApp] = useState<stateApp>({ status: "none" });
+
   const didRun = useRef(false); // solucion al doble useEffect
   // Ocurre una sola vez, cuando toda la APP se renderice
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function App() {
             "/api/auth/profile",
             res.access_token,
           );
-          setApp({ status: "success", data: user.data });
+          setApp({ status: "success", data: user.data, access_token: res.access_token });
           setLoad({ status: "idle" });
         } catch (error) {
           console.error((error as Error).message);

@@ -43,25 +43,26 @@ export default function Login({ onLoad, onSubmit }: propsLogin) {
         id="username"
         className="input"
         type="text"
-        textContent="Username"
+        textContent="Usuario"
         required={true}
       />
       <Input
         id="password"
         className="input"
         type="password"
-        textContent="Password"
+        textContent="Contraseña"
         required={true}
       />
       <CheckBox
         id="rememberme"
         className="checkbox"
         type="checkbox"
-        textContent="Remember me"
+        textContent="Mantener sesion iniciada"
         required={false}
       />
+      <a target="_blank" href="#">Olvide la contraseña</a>
       <button type="submit" className="submit">
-        Log In
+        Iniciar Sesion
       </button>
     </form>
   );

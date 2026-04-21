@@ -9,6 +9,7 @@ export type LoginResponse = ApiResponse & {
 
 export type AccessResponse = ApiResponse & {
   data:UserResponse
+  access_token: string
 }
 
 export type UserRegister = {

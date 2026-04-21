@@ -1,7 +1,7 @@
 import type { UserResponse } from "./typeService";
 
 export type stateApp =
-  | { status: "success"; data: UserResponse }
+  | { status: "success"; data: UserResponse; access_token: string }
   | { status: "idle" }
   | { status: "none" };
 export type stateLoad = { status: "idle" } | { status: "load" };

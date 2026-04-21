@@ -41,28 +41,28 @@ export default function SignUp({ onLoad, onSubmit }: propsSignUp) {
         id="name"
         className="input"
         type="text"
-        textContent="First Name"
+        textContent="Nombre"
         required={true}
       />
       <Input
         id="lastname"
         className="input"
         type="text"
-        textContent="Last Name"
+        textContent="Apellido"
         required={true}
       />
       <Input
         id="username"
         className="input"
         type="text"
-        textContent="Username"
+        textContent="Usuario"
         required={true}
       />
       <Input
         id="password"
         className="input"
         type="password"
-        textContent="Password"
+        textContent="Contraseña"
         required={true}
       />
       <Input
@@ -70,7 +70,7 @@ export default function SignUp({ onLoad, onSubmit }: propsSignUp) {
         cut="cut-long"
         className="input"
         type="password"
-        textContent="Repeat Password"
+        textContent="Repetir Contraseña"
         required={true}
       />
       <Input
@@ -85,7 +85,7 @@ export default function SignUp({ onLoad, onSubmit }: propsSignUp) {
         id="birthday"
         className="input"
         type="date"
-        textContent="Birthday"
+        textContent="Fecha de Nacimiento"
         required={true}
       />
       <Input
@@ -93,11 +93,11 @@ export default function SignUp({ onLoad, onSubmit }: propsSignUp) {
         cut="cut-medium"
         className="input"
         type="text"
-        textContent="Country"
+        textContent="País"
         required={true}
       />
       <button type="submit" className="submit">
-        Create Account
+        Crear Cuenta
       </button>
     </form>
   );

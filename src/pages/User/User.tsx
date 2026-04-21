@@ -4,6 +4,7 @@ import EditUser from "./components/EditUser";
 import type { stateUser } from "../../types/typeStates";
 import type { propsUser } from "../../types/typeProps";
 import "./User.css";
+import DeleteUser from "./components/DeleteUser";
 
 export default function User({ data, onDisconnect }: propsUser) {
   const [user, setUser] = useState<stateUser>({ status: "idle", data });
@@ -19,7 +20,6 @@ export default function User({ data, onDisconnect }: propsUser) {
         setUser({ status: "delete" });
         break;
       case "close":
-        setUser({ status: "close" });
         onDisconnect();
         break;
     }
@@ -73,6 +73,9 @@ export default function User({ data, onDisconnect }: propsUser) {
             <TablaUser userAuth={user.data}></TablaUser>
           )}
           {user.status === "edit" && <EditUser></EditUser>}
+          {
+            user.status === "delete" && <DeleteUser></DeleteUser>
+          }
         </>
       </div>
     </div>

@@ -42,7 +42,7 @@ Se encarga de la interacción con el usuario y del consumo de la API.
 - 🚪 **Logout**  
   Se conecta al servidor para cerrar la sesión del usuario.
 
-- 👤 **User (/me)**  
+- 👤 **User**  
   Se conecta al servidor para consultar, editar y eliminar un usuario autenticado.
 
 ### ⚙️ Servidor (Node.js + Express)
@@ -58,7 +58,7 @@ Se encarga de procesar las peticiones, aplicar lógica y comunicarse con la base
 - 🚪 **Logout**  
   Recibe la petición y cierra la sesión del usuario autenticado eliminando el token.
 
-- 👤 **User (/me)**  
+- 👤 **User**  
   Recibe la petición, valida el token de acceso, consulta la base de datos y devuelve los datos del usuario autenticado.
 
 ### 🗄️ Base de Datos (MySQL)
